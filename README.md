@@ -12,7 +12,7 @@ A Java-based backend system designed to manage employee workflows including task
 * Task status tracking (Pending, In Progress, Completed)
 * Performance scoring based on task completion
 * Dashboard insights (employees, tasks, leaves)
-
+  
 ## Architecture
 
 UI Layer → Service Layer → DAO Layer → MySQL Database
@@ -65,8 +65,24 @@ status VARCHAR(20)
 
 ## Sample Output
 
-(Admin assigns task → Employee completes → Performance updates)
+=== Admin Menu ===
+1. Add Employee
+2. Assign Task
+3. Approve Leave
 
+=== Employee Menu ===
+1. View Tasks
+2. Apply Leave
+3. View Performance
+
+## Why This Project
+
+This system simulates real-world enterprise workflow management, demonstrating how backend systems handle task assignment, approval processes, and performance tracking.
+## Key Highlights
+
+- Designed role-based system with separate Admin and Employee workflows
+- Implemented layered architecture (DAO-Service-UI)
+- Integrated business logic for task prioritization and performance scoring
 ## Future Improvements
 
 * REST API version
