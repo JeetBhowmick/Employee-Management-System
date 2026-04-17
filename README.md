@@ -1,72 +1,74 @@
-# Employee Task, Leave, and Performance Management System
+# Employee Task, Leave & Performance Management System
 
-A professional Java console-based backend mini-system demonstrating layered architecture, JDBC + MySQL integration, and business workflows for role-based employee and admin operations.
+## Overview
+
+A Java-based backend system designed to manage employee workflows including task assignment, leave management, and performance tracking. The system follows a layered architecture and simulates real-world enterprise backend operations.
+
+## Features
+
+* Role-based access (Admin / Employee)
+* Task assignment with priority levels
+* Leave request and approval workflow
+* Task status tracking (Pending, In Progress, Completed)
+* Performance scoring based on task completion
+* Dashboard insights (employees, tasks, leaves)
+
+## Architecture
+
+UI Layer → Service Layer → DAO Layer → MySQL Database
 
 ## Tech Stack
-- Core Java (JDK 17)
-- JDBC (`PreparedStatement` + `ResultSet`)
-- MySQL (`employee_db`)
-- Maven
 
-## Project Architecture
-```
-src/main/java/com/company/employee
-├── dao        # Database operations (JDBC implementations)
-├── model      # Entities and enums
-├── service    # Business logic and workflows
-├── ui         # Menu-driven console interface
-└── util       # Shared utilities (DB connection, table printer)
-```
-
-## Core Features
-### Employee Module
-- View assigned tasks
-- Apply for leave
-- View leave status
-- View performance score
-
-### Admin Module
-- Add employee
-- Assign tasks with priority (`HIGH`, `MEDIUM`, `LOW`)
-- Update task status (`PENDING`, `IN_PROGRESS`, `COMPLETED`)
-- Approve/reject leave requests (`PENDING -> APPROVED/REJECTED`)
-- View all employees, tasks, and leave requests
-- Dashboard statistics:
-  - Total employees
-  - Pending leaves
-  - Completed tasks
-
-## Role-Based Login
-- Login by Employee ID.
-- Employees with role `ADMIN` enter admin menu.
-- Employees with role `EMPLOYEE` enter employee menu.
-
-## Performance Scoring Rule
-- Score = `completed_tasks * 10`
-- Score is recomputed and upserted in `Performance` table.
+* Java (Core)
+* JDBC
+* MySQL
+* Maven
 
 ## Database Setup
-1. Ensure MySQL is running.
-2. Execute:
-   ```sql
-   source src/main/resources/schema.sql;
-   ```
 
-## Environment Variables (Optional)
-Defaults are used if not provided.
-- `DB_URL` (default: `jdbc:mysql://localhost:3306/employee_db`)
-- `DB_USER` (default: `root`)
-- `DB_PASSWORD` (default: `root`)
+Run the following SQL:
 
-## Build & Run
-```bash
-mvn clean compile
-mvn exec:java -Dexec.mainClass=com.company.employee.ui.EmployeeManagementApp
-```
+CREATE DATABASE employee_db;
 
-## Notes
-- Console output uses formatted table rendering for better readability.
-- Exception handling is included across DAO operations with meaningful error logs.
-- Designed to stay modular and enterprise-like without unnecessary complexity.
+CREATE TABLE employees(
+id INT AUTO_INCREMENT PRIMARY KEY,
+name VARCHAR(50),
+role VARCHAR(20)
+);
 
+CREATE TABLE tasks(
+id INT AUTO_INCREMENT PRIMARY KEY,
+emp_id INT,
+task_name VARCHAR(100),
+priority VARCHAR(10),
+status VARCHAR(20)
+);
 
+CREATE TABLE leaves(
+id INT AUTO_INCREMENT PRIMARY KEY,
+emp_id INT,
+days INT,
+status VARCHAR(20)
+);
+##workflow
+1. Login as Admin
+2. Add Employee
+3. Assign Task
+4. Approve Leave
+   
+## How to Run
+
+1. Clone repository
+2. Configure MySQL credentials in code
+3. Run Main.java
+4. Use console menu
+
+## Sample Output
+
+(Admin assigns task → Employee completes → Performance updates)
+
+## Future Improvements
+
+* REST API version
+* Web-based frontend
+* Authentication system
